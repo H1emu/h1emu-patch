@@ -1004,17 +1004,21 @@ bool VCPatcher::Init()
 	
 #if 1
 	// still need this
-	hook::nopVP(0x1401F8993, 6); //Needed or we won't receive zone details due to some condition, I believe game checks packet length
+	 hook::nopVP(0x1401F8993, 6); //Needed or we won't receive zone details due to some condition, I believe game checks packet length
 	//hook::nopVP(0x1401F89A7, 6); //Not needed either
 
 	//Nop for weird condition under ClientBeginZoning
+	 hook::nopVP(0x1401F9370, 105); 
+	//hook::nopVP(0x1401F9370, 53); //Nop but leave the function alone
+	//hook::nopVP(0x1401F93B8, 33);
+	//	hook::nopVP(0x1401F93D3, 6);
+
 #if RIP_ZONING
 	//hook::nopVP(0x1401F9370, 105); 
 	//hook::nopVP(0x1401F9370, 53); //Nop but leave the function alone
 	//hook::nopVP(0x1401F93B8, 33);
 	hook::nopVP(0x1401F9373, 6);
 	hook::nopVP(0x1401F93BF, 6);
-	hook::nopVP(0x1401F93D3, 6);
 	//hook::nopVP(0x14049E653, 8); //Not sure what this is, crashes everything
 	hook::nopVP(0x14148D6BD, 11);
 #endif
@@ -1030,9 +1034,9 @@ bool VCPatcher::Init()
 
 	//Confirm packet
 	// still need this
-	MH_CreateHook((char*)0x140122C30, WaitForWorldReady, (void**)&g_origWaitForWorldReady); //Needs the confirm packet
+	//MH_CreateHook((char*)0x140122C30, WaitForWorldReady, (void**)&g_origWaitForWorldReady); //Needs the confirm packet
 	// still need this or client crashes right before loading zone -meme
-	hook::return_function_vp(0x1408B4230); //crashes
+	//hook::return_function_vp(0x1408B4230); //crashes
 
 	//hook::vp::jump(0x140875A00, ReturnTrue); //Process attachment group, pretend it has entries
 	//hook::nopVP(0x14056F82E, 65);
