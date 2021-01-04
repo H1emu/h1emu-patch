@@ -1038,9 +1038,9 @@ bool VCPatcher::Init()
 
 	//Confirm packet
 	// still need this
-	//MH_CreateHook((char*)0x140122C30, WaitForWorldReady, (void**)&g_origWaitForWorldReady); //Needs the confirm packet
+	MH_CreateHook((char*)0x140122C30, WaitForWorldReady, (void**)&g_origWaitForWorldReady); //Needs the confirm packet
 	// still need this or client crashes right before loading zone -meme
-//	hook::return_function_vp(0x1408B4230); //crashes
+	hook::return_function_vp(0x1408B4230); //crashes
 
 	//hook::vp::jump(0x140875A00, ReturnTrue); //Process attachment group, pretend it has entries
 	//hook::nopVP(0x14056F82E, 65);
