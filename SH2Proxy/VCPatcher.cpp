@@ -1070,6 +1070,28 @@ bool VCPatcher::Init()
 	//hook::return_function_vp(0x1449DFFF2);
 
 	//Misc
+
+	// remove all badbeef
+	hook::nopVP(0x1400301b0, 11);
+	hook::nopVP(0x1417b8c18, 11);
+	hook::nopVP(0x1417b85d5, 11);
+	hook::nopVP(0x1417b4ba9, 11);
+	hook::nopVP(0x1417b4ae2, 11);
+	hook::nopVP(0x1417b478f, 11);
+	hook::nopVP(0x1417b446f, 11);
+	hook::nopVP(0x1417b399b, 11);
+	hook::nopVP(0x1417b2579, 11);
+	hook::nopVP(0x1417ae3ef, 11);
+	hook::nopVP(0x1400ddf2c, 11);
+	hook::nopVP(0x1400ddcfa, 11);
+	hook::nopVP(0x1400dd9f8, 11);
+	hook::nopVP(0x1400dd793, 11);
+	hook::nopVP(0x1400dd74f, 11);
+	hook::nopVP(0x1400d9dd8, 11);
+	hook::nopVP(0x1400d9cfa, 11);
+
+
+
 	hook::jump(0x1400301B0, OnIntentionalCrash); //Should have crashed, but continue executing...
 
 	//MH_CreateHook((char*)0x14020C920, hook_tickControllers, (void**)&tickControllers_Orig);
