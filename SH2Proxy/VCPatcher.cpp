@@ -1090,7 +1090,9 @@ bool VCPatcher::Init()
 	hook::nopVP(0x1400d9dd8, 11);
 	hook::nopVP(0x1400d9cfa, 11);
 
+	hook::nopVP(0x140200017, 2); // npc
 
+	hook::nopVP(0x1401FFEAB, 6); // vehicle npc
 
 	hook::jump(0x1400301B0, OnIntentionalCrash); //Should have crashed, but continue executing...
 
