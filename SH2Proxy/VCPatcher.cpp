@@ -216,6 +216,8 @@ bool VCPatcher::Init()
 	hook::nopVP(0x1400d9cfa, 11);
 	hook::jump(0x1400301B0, OnIntentionalCrash); //Should have crashed, but continue executing...
 
+	hook::nopVP(0x140200017, 2); // npc
+	hook::nopVP(0x1401FFEAB, 6); // vehicle npc
 	MH_CreateHook((char*)0x14019AFB0, processInput, (void**)&processInput_orig);
 
 
