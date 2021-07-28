@@ -192,34 +192,11 @@ void OnIntentionalCrash() {
 bool VCPatcher::Init()
 {
 	
-	MH_CreateHook((char*)0x140122C30, WaitForWorldReady, (void**)&g_origWaitForWorldReady); //Needs the confirm packet
+	MH_CreateHook((char*)0x140122cb0, WaitForWorldReady, (void**)&g_origWaitForWorldReady); //Needs the confirm packet
 	// still need this or client crashes right before loading zone -meme
-	hook::return_function_vp(0x1408B4230); //crashes
+	hook::return_function_vp(0x1400b0c46); //crashes
 
-	// remove all badbeef
-	hook::nopVP(0x1400301b0, 11);
-	hook::nopVP(0x1417b8c18, 11);
-	hook::nopVP(0x1417b85d5, 11);
-	hook::nopVP(0x1417b4ba9, 11);
-	hook::nopVP(0x1417b4ae2, 11);
-	hook::nopVP(0x1417b478f, 11);
-	hook::nopVP(0x1417b446f, 11);
-	hook::nopVP(0x1417b399b, 11);
-	hook::nopVP(0x1417b2579, 11);
-	hook::nopVP(0x1417ae3ef, 11);
-	hook::nopVP(0x1400ddf2c, 11);
-	hook::nopVP(0x1400ddcfa, 11);
-	hook::nopVP(0x1400dd9f8, 11);
-	hook::nopVP(0x1400dd793, 11);
-	hook::nopVP(0x1400dd74f, 11);
-	hook::nopVP(0x1400d9dd8, 11);
-	hook::nopVP(0x1400d9cfa, 11);
 	hook::jump(0x1400301B0, OnIntentionalCrash); //Should have crashed, but continue executing...
-
-	// patch for "PlayerUpdate.UpdateStat"
-	hook::nopVP(0x1402057BE, 7);
-	hook::nopVP(0x1402057C5, 5);
-	hook::nopVP(0x1402057CB, 5);
 
 	
 	MH_CreateHook((char*)0x14019AFB0, processInput, (void**)&processInput_orig);
