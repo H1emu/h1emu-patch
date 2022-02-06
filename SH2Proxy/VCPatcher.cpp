@@ -192,11 +192,11 @@ void OnIntentionalCrash() {
 bool VCPatcher::Init()
 {
 	
-	MH_CreateHook((char*)0x140122C30, WaitForWorldReady, (void**)&g_origWaitForWorldReady); //Needs the confirm packet
+	//MH_CreateHook((char*)0x140122C30, WaitForWorldReady, (void**)&g_origWaitForWorldReady); //Needs the confirm packet
 	// still need this or client crashes right before loading zone -meme
 	hook::return_function_vp(0x1408B4230); //crashes
 
-	hook::jump(0x1400301B0, OnIntentionalCrash); //Should have crashed, but continue executing...
+    hook::jump(0x1400301B0, OnIntentionalCrash); //Should have crashed, but continue executing...
 
 
 	
