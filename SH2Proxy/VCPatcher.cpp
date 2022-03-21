@@ -189,6 +189,30 @@ intptr_t WaitForWorldReady(char* a1) {
 void OnIntentionalCrash() {
 }
 
+struct __declspec(align(2)) DataLoadByPacket
+{
+	char* _buffer;
+	int bufferSize;
+	char gapC[4];
+	char* pBuffer;
+	char* pBufferEnd;
+	__int16 failureFlag;
+};
+
+static void(*ItemDefinitionReadFromBuffer_orig)(void* a1, DataLoadByPacket* buffer);
+static void ItemDefinitionReadFromBuffer(void* a1, DataLoadByPacket* buffer) {
+	if (buffer->pBuffer + 4 <= buffer->pBufferEnd)
+	{
+		buffer->pBuffer = buffer->pBuffer + 4;                   // ID
+	}
+	else
+	{
+		buffer->failureFlag = 1;
+		buffer->pBuffer = buffer->pBufferEnd;
+	}
+	ItemDefinitionReadFromBuffer_orig(a1, buffer);
+}
+
 bool VCPatcher::Init()
 {
 	
@@ -198,9 +222,9 @@ bool VCPatcher::Init()
 
     hook::jump(0x1400301B0, OnIntentionalCrash); //Should have crashed, but continue executing...
 
-
-	
 	MH_CreateHook((char*)0x14019AFB0, processInput, (void**)&processInput_orig);
+
+	MH_CreateHook((char*)0x14045F9F0, ItemDefinitionReadFromBuffer, (void**)&ItemDefinitionReadFromBuffer_orig);
 
 
 	MH_EnableHook(MH_ALL_HOOKS);

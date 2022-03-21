@@ -103,6 +103,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>false</ConformanceMode>
       <ProgramDataBaseFileName>$(IntDir)$(ProjectName).pdb</ProgramDataBaseFileName>
+      <AdditionalIncludeDirectories>$(ProjectDir)\Vendor\jitasm;$(ProjectDir)\Vendor\minhook\include;$(ProjectDir)\Vendor\udis86;$(ProjectDir)\Vendor\udis86\libudis86;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <ModuleDefinitionFile>
